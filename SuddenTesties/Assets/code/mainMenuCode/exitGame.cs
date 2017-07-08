@@ -5,6 +5,7 @@ using UnityEngine;
 public class exitGame : MonoBehaviour {
 
 	void TaskOnClick () {
+		Debug.Log ("Exit");
 		Application.Quit ();
 	}
 }
