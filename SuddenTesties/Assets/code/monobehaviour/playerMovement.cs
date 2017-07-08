@@ -29,6 +29,7 @@ public class playerMovement : MonoBehaviour {
     bool facingRight = true;
 	bool grounded = false;
 	bool jump = false;
+	bool fallthrough = false;
 
 	int xDir = 0; // Left: -1, Standstill: 0, Right: 1
 
@@ -64,22 +65,24 @@ public class playerMovement : MonoBehaviour {
 
         switch (state)
         {
-            case PlayerState.active:
-                if (xDir != 0 && (rigidbody.velocity.x * (float)xDir) < maxSpeed)
-                {
-                    rigidbody.AddForce(Vector2.right * xDir * acceleration);
+		case PlayerState.active:
+			if (xDir != 0 && (rigidbody.velocity.x * (float)xDir) < maxSpeed) {
+				rigidbody.AddForce (Vector2.right * xDir * acceleration);
 
-                    if (rigidbody.velocity.x > maxSpeed)
-                    {
-                        rigidbody.velocity = new Vector2(Mathf.Sign(rigidbody.velocity.x) * maxSpeed, rigidbody.velocity.y);
-                    }
-                }
+				if (rigidbody.velocity.x > maxSpeed) {
+					rigidbody.velocity = new Vector2 (Mathf.Sign (rigidbody.velocity.x) * maxSpeed, rigidbody.velocity.y);
+				}
+			}
 
-                if (jump)
-                {
-                    rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-                    jump = false;
-                }
+			if (jump) {
+				rigidbody.AddForce (Vector2.up * jumpForce, ForceMode2D.Impulse);
+				jump = false;
+			}
+
+			if (fallthrough) {
+				gameObject.layer = LayerMask.NameToLayer ("PlayerJumpthrough");
+				fallthrough = false;
+			}
                 break;
             case PlayerState.firing:
 
@@ -117,6 +120,10 @@ public class playerMovement : MonoBehaviour {
         {
             xDir = -1;
         }
+
+		if (Input.GetKeyDown (KeyCode.S) && grounded) {
+			fallthrough = true;
+		}
 
         if ((Input.GetKeyUp(KeyCode.A) && xDir == -1) || (Input.GetKeyUp(KeyCode.D) && xDir == 1))
         {
