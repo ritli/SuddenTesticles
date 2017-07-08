@@ -17,6 +17,8 @@ public class Inputs{
     string jump = "Jump";
     string horizontal = "Horizontal";
     string vertical = "Vertical";
+    string aimX = "HorizontalAim";
+    string aimY = "VerticalAim";
 
     string prefix()
     {
@@ -41,6 +43,14 @@ public class Inputs{
     public string Vertical
     {
         get { return prefix() + vertical; }
+    }
+    public string AimX
+    {
+        get { return prefix() + aimX; }
+    }
+    public string AimY
+    {
+        get { return prefix() + aimY; }
     }
 }
 
@@ -86,12 +96,17 @@ public class playerMovement : MonoBehaviour {
     HeadCollider headCollider;
     Rigidbody2D rigidbody;
 
-	void Start () {
+    private bool XboxController = false;
+    private bool PS4Controller = false;
+
+    void Start () {
         fireCooldown = fireCooldownMax;
 
         headCollider = GetComponentInChildren<HeadCollider>();
         rigidbody = GetComponent<Rigidbody2D> ();
-	}
+
+        InitControllers();
+    }
 	
 	void Update () {
 
@@ -151,13 +166,42 @@ public class playerMovement : MonoBehaviour {
         xDir = Input.GetAxis(inputs.Horizontal);
         float yVel = Input.GetAxis(inputs.Vertical);
 
-        print(new Vector2(xDir, yVel));
-
-        if (Input.GetButtonDown(inputs.Fire) && fireCooldown > fireCooldownMax)
+        if (XboxController)
         {
-            StartFire();
+            fireVector = new Vector2(Input.GetAxisRaw(inputs.AimX), -Input.GetAxisRaw(inputs.AimY));
+
+            Debug.DrawLine(transform.position, transform.position + (Vector3)fireVector);
+            print(fireVector);
+
+            if (fireVector.magnitude > 0.85f && fireCooldown > fireCooldownMax)
+            {
+
+                StartFire();
+            }
         }
+        else
+        {
+            if (Input.GetButtonDown(inputs.Fire) && fireCooldown > fireCooldownMax)
+            {
+                StartFire();
+            }
+        }
+
+		if (yVel > 0.5f && grounded) {
+			fallthrough = true;
+		}
+
+        if (Input.GetButtonDown(inputs.Jump) && grounded)
+        {
+            jump = true;
+        }
+
         /*
+        if ((Input.GetKeyUp(KeyCode.A) && xDir == -1) || (Input.GetKeyUp(KeyCode.D) && xDir == 1))
+        {
+            xDir = 0;
+        }
+
         if (xVel > 0)
         {
             xDir = 1;
@@ -168,20 +212,6 @@ public class playerMovement : MonoBehaviour {
             xDir = -1;
         }
         */
-		if (yVel > 0.5f && grounded) {
-			fallthrough = true;
-		}
-
-        /*
-        if ((Input.GetKeyUp(KeyCode.A) && xDir == -1) || (Input.GetKeyUp(KeyCode.D) && xDir == 1))
-        {
-            xDir = 0;
-        }
-        */
-        if (Input.GetButtonDown(inputs.Jump) && grounded)
-        {
-            jump = true;
-        }
     }
 
     void StartFire()
@@ -189,7 +219,10 @@ public class playerMovement : MonoBehaviour {
         fireCooldown = 0;
         rigidbody.gravityScale = 0;
 
-        fireVector = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        if (!XboxController)
+        {
+            fireVector = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        }
 
         transform.rotation = Quaternion.FromToRotation(transform.up, fireVector);
 
@@ -235,6 +268,43 @@ public class playerMovement : MonoBehaviour {
         point += (point - origin).normalized;
 
         return Physics2D.Linecast(origin, point, collisionMask).normal;
+    }
+
+
+    void InitControllers()
+    {
+        string[] names = Input.GetJoystickNames();
+        for (int x = 0; x < names.Length; x++)
+        {
+            print(names[x]);
+            if (names[x].Length == 19)
+            {
+                print("PS4 CONTROLLER IS CONNECTED");
+                PS4Controller = true;
+                XboxController = false;
+            }
+            if (names[x].Length == 20)
+            {
+                print("XBOX CONTROLLER IS CONNECTED");
+                //set a controller bool to true
+                PS4Controller = false;
+                XboxController = true;
+
+            }
+        }
+
+        if (XboxController)
+        {
+            //do something
+        }
+        else if (PS4Controller)
+        {
+            //do something
+        }
+        else
+        {
+            // there is no controllers
+        }
     }
 
     public LayerMask GetCollisionMask()
