@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 1a5640a971e578d45ace2f8f88603a4f
-timeCreated: 1499514510
+guid: f4caf2872e37abd4282c45e2a9cfafcf
+timeCreated: 1499537453
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: player_idle_spritesheet_0
-    21300002: player_idle_spritesheet_1
-    21300004: player_idle_spritesheet_2
-    21300006: player_idle_spritesheet_3
+    21300000: Bubbles2_0
+    21300002: Bubbles2_1
+    21300004: Bubbles2_2
+    21300006: Bubbles2_3
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -74,54 +74,54 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: player_idle_spritesheet_0
+      name: Bubbles2_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 46
-        height: 102
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: player_idle_spritesheet_1
+      name: Bubbles2_1
       rect:
         serializedVersion: 2
-        x: 47
+        x: 64
         y: 0
-        width: 46
-        height: 102
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: player_idle_spritesheet_2
+      name: Bubbles2_2
       rect:
         serializedVersion: 2
-        x: 94
+        x: 128
         y: 0
-        width: 46
-        height: 102
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: player_idle_spritesheet_3
+      name: Bubbles2_3
       rect:
         serializedVersion: 2
-        x: 141
+        x: 192
         y: 0
-        width: 46
-        height: 102
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
