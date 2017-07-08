@@ -171,7 +171,6 @@ public class playerMovement : MonoBehaviour {
             fireVector = new Vector2(Input.GetAxisRaw(inputs.AimX), -Input.GetAxisRaw(inputs.AimY));
 
             Debug.DrawLine(transform.position, transform.position + (Vector3)fireVector);
-            print(fireVector);
 
             if (fireVector.magnitude > 0.85f && fireCooldown > fireCooldownMax)
             {
@@ -191,7 +190,7 @@ public class playerMovement : MonoBehaviour {
 			fallthrough = true;
 		}
 
-        if (Input.GetButtonDown(inputs.Jump) && grounded)
+        if (Input.GetAxis(inputs.Jump) == 1 && grounded && !jump)
         {
             jump = true;
         }
