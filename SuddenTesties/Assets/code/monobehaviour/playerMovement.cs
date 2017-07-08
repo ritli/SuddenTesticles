@@ -73,7 +73,7 @@ public class playerMovement : MonoBehaviour {
 	bool jump = false;
 	bool fallthrough = false;
 
-	int xDir = 0; // Left: -1, Standstill: 0, Right: 1
+	float xDir = 0; // Left: -1, Standstill: 0, Right: 1
 
     PlayerState state;
 
@@ -148,30 +148,36 @@ public class playerMovement : MonoBehaviour {
 
     void InputUpdate()
     {
+        xDir = Input.GetAxis(inputs.Horizontal);
+        float yVel = Input.GetAxis(inputs.Vertical);
+
+        print(new Vector2(xDir, yVel));
+
         if (Input.GetButtonDown(inputs.Fire) && fireCooldown > fireCooldownMax)
         {
             StartFire();
         }
-
-        if (Input.GetKeyDown(KeyCode.D))
+        /*
+        if (xVel > 0)
         {
             xDir = 1;
         }
 
-        else if (Input.GetKeyDown(KeyCode.A))
+        else if (xVel < 0)
         {
             xDir = -1;
         }
-
-		if (Input.GetKeyDown (KeyCode.S) && grounded) {
+        */
+		if (yVel > 0.5f && grounded) {
 			fallthrough = true;
 		}
 
+        /*
         if ((Input.GetKeyUp(KeyCode.A) && xDir == -1) || (Input.GetKeyUp(KeyCode.D) && xDir == 1))
         {
             xDir = 0;
         }
-
+        */
         if (Input.GetButtonDown(inputs.Jump) && grounded)
         {
             jump = true;
