@@ -4,26 +4,29 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
-    [SerializeField] GameObject player;
+    [SerializeField] GameObject[] players;
     [SerializeField] float maxAlphaDistance = 0.5f;
     [SerializeField] bool moveToPlayer = true;
+    [SerializeField] float minZoomLevel = 5;
+    [SerializeField] float maxZoomLevel = 8;
 
-    float zPos = -10f;
+    const float zPos = -10f;
     Vector3 lookAtPosition;
+    Camera camera;
+
+    bool shakeScreen = false;
+    float screenShakeMagnitude = 0f;
 
     void Start () {
-        if (!player)
+        camera = GetComponent<Camera>();
+
+        if (players.Length == 0)
         {
-            player = GameObject.FindGameObjectWithTag("Player");
+            players = GameObject.FindGameObjectsWithTag("Player");
         }	
 	}
 	
 	void FixedUpdate () {
-
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            LookAtPosition(new Vector2(1, 10), 2f);
-        }
 
         Vector2 moveToPos = Vector2.zero;
 
@@ -31,6 +34,7 @@ public class CameraController : MonoBehaviour {
         {
             moveToPos = GetPlayerPos();
         }
+
 
         Move(moveToPos);
 	}
@@ -40,6 +44,12 @@ public class CameraController : MonoBehaviour {
         toPosition.z = zPos;
 
         transform.position = Vector3.MoveTowards(transform.position, toPosition, maxAlphaDistance);
+
+        if (shakeScreen)
+        {
+            transform.position += (Vector3)GetRandomVector(screenShakeMagnitude);
+        }
+
     }
 
     public void LookAtPosition(Vector2 position, float time)
@@ -60,7 +70,71 @@ public class CameraController : MonoBehaviour {
 
     Vector2 GetPlayerPos()
     {
-        return player.transform.position;
+        Vector2[] playerpositions = new Vector2[players.Length];
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            playerpositions[i] = players[i].transform.position;
+        }
+
+        ZoomToFit(playerpositions);
+
+        return CenterOfVectors(playerpositions);
+    }
+
+    Vector2 CenterOfVectors(Vector2[] vectors)
+    {
+        Vector2 sum = Vector2.zero;
+        if (vectors == null || vectors.Length == 0)
+        {
+            return sum;
+        }
+
+        foreach (Vector2 vec in vectors)
+        {
+            sum += vec;
+        }
+        return sum / vectors.Length;
+    }
+
+    void ZoomToFit(Vector2[] positions)
+    {
+        float greatestDistance = 0;
+
+        for (int i = 0; i < positions.Length; i++)
+        {
+            float dist = Vector2.Distance(camera.WorldToScreenPoint(positions[i]), new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
+
+            if (dist > greatestDistance)
+            {
+                greatestDistance = dist;
+            }
+        }
+
+        float alpha = greatestDistance / new Vector2(Screen.width * 0.5f, Screen.height * 0.5f).magnitude;
+
+        camera.orthographicSize = Mathf.Lerp(minZoomLevel, maxZoomLevel, alpha);
+    }
+
+    Vector2 GetRandomVector(float magnitude)
+    {
+        return Random.insideUnitCircle * magnitude;
+    }
+
+    void ShakeScreen(float time, float magnitude)
+    {
+        screenShakeMagnitude = magnitude; 
+
+        StartCoroutine(StartScreenShake(time));
+    }
+
+    IEnumerator StartScreenShake(float time)
+    {
+        shakeScreen = true;
+
+        yield return new WaitForSeconds(time);
+
+        shakeScreen = false;
     }
 
 }
