@@ -7,6 +7,43 @@ enum PlayerState
     active, firing, paused
 }
 
+[System.Serializable]
+public class Inputs{
+    [Range(1, 2)]
+    [SerializeField] int playerId = 1;
+
+    string fire = "Fire";
+    string strike = "Strike";
+    string jump = "Jump";
+    string horizontal = "Horizontal";
+    string vertical = "Vertical";
+
+    string prefix()
+    {
+        return "P" + playerId.ToString();
+    }
+
+    public string Fire{
+        get{ return prefix() + fire;}
+    }
+    public string Strike
+    {
+        get { return prefix() + strike; }
+    }
+    public string Jump
+    {
+        get { return prefix() + jump; }
+    }
+    public string Horizontal
+    {
+        get { return prefix() + horizontal; }
+    }
+    public string Vertical
+    {
+        get { return prefix() + vertical; }
+    }
+}
+
 public class playerMovement : MonoBehaviour {
     #region EditorVariables
 
@@ -16,13 +53,18 @@ public class playerMovement : MonoBehaviour {
 	[SerializeField] float acceleration;
 	[SerializeField] float jumpForce;
 	[SerializeField] Transform groundCheck;
+
+    [Header("Fire Variables")]
+
     [SerializeField] float fireCooldownMax;
 	[SerializeField] float fireForce = 2.5f;
+    [SerializeField] float fireBounceForce = 2f;
 
     [Header("Layermasks")]
 
-    [SerializeField]LayerMask collisionMask;
+    [SerializeField] LayerMask collisionMask;
 
+    [SerializeField] Inputs inputs;
     #endregion
     
     //Movement vars
@@ -106,7 +148,7 @@ public class playerMovement : MonoBehaviour {
 
     void InputUpdate()
     {
-        if (Input.GetButtonDown("Fire1") && fireCooldown > fireCooldownMax)
+        if (Input.GetButtonDown(inputs.Fire) && fireCooldown > fireCooldownMax)
         {
             StartFire();
         }
@@ -130,7 +172,7 @@ public class playerMovement : MonoBehaviour {
             xDir = 0;
         }
 
-        if (Input.GetButtonDown("Jump") && grounded)
+        if (Input.GetButtonDown(inputs.Jump) && grounded)
         {
             jump = true;
         }
@@ -145,18 +187,37 @@ public class playerMovement : MonoBehaviour {
 
         transform.rotation = Quaternion.FromToRotation(transform.up, fireVector);
 
-       // headCollider.gameObject.SetActive(true);
         state = PlayerState.firing;
     }
 
     void EndFire()
     {
+        Vector2 normal = Vector2.zero;
+
+        for (int i = 0; i < 3; i++)
+        {
+            Vector2 offset = transform.right * (i - 1) * 0.5f;
+            Vector2 origin = transform.position - transform.right * 0.5f + (Vector3)offset;
+            Vector2 direction = transform.up;
+
+            RaycastHit2D hit;
+
+            if (hit = Physics2D.Linecast(origin, origin + direction, collisionMask))
+            {
+                normal = hit.normal;
+                break;
+            }
+        }
+
+        rigidbody.velocity = Vector2.zero;
+
+        Vector2 reflectVector = Vector2.Reflect(fireVector, normal).normalized;
+
         rigidbody.gravityScale = 1;
         transform.rotation = Quaternion.identity;
 
-       // rigidbody.AddForce( Vector2.Reflect(fireVector, GetFireNormal()).normalized * 30, ForceMode2D.Impulse);
+        rigidbody.AddForce(reflectVector * fireBounceForce, ForceMode2D.Impulse);
 
-        //headCollider.gameObject.SetActive(false);
         state = PlayerState.active;
     }
 
