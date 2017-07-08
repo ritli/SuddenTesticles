@@ -9,13 +9,8 @@ public class startGame : MonoBehaviour {
 	void Start () {
 		gameObject.GetComponent<Selectable> ().Select ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
-	void TaskOnClick(){
+	public void start (){
 		Debug.Log ("Clicked");
 		UnityEngine.SceneManagement.SceneManager.LoadScene ("game");
 	}

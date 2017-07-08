@@ -8,4 +8,14 @@ public class exitGame : MonoBehaviour {
 		Debug.Log ("Exit");
 		Application.Quit ();
 	}
+
+	void OnMouseAsButton(){
+		Debug.Log ("Clicked");
+		exit ();
+	}
+
+	public void exit(){
+		Debug.Log ("Exiting");
+		Application.Quit ();
+	}
 }
