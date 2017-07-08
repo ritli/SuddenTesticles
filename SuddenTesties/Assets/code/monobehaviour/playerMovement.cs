@@ -163,6 +163,10 @@ public class playerMovement : MonoBehaviour {
 
     void InputUpdate()
     {
+		if ((float)(facingRight ? 1 : -1) != Mathf.Sign (Input.GetAxis (inputs.Horizontal))) {
+			facingRight = !facingRight;
+			transform.localScale = new Vector2 (-transform.localScale.x, transform.localScale.y);
+		}
         xDir = Input.GetAxis(inputs.Horizontal);
         float yVel = Input.GetAxis(inputs.Vertical);
 

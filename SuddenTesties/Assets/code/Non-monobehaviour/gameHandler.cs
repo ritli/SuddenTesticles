@@ -1,19 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 static public class gameHandler {
 
 	static List<Vector2> m_spawnPoints;
-	static int m_p1score, m_p2score;
+	static int[] m_pScore = new int[2];
 	static public int P1Score {
-		get { return m_p1score; }
+		get { return m_pScore[0]; }
 	}
 	static public int P2Score {
-		get { return m_p2score; }
+		get { return m_pScore[1]; }
 	}
 
-	static GUIText m_p1ScoreText, m_p2ScoreText;
+	static Text[] m_scoreText = new Text[2];
 
 	// Setup new game
 	public static void instantiate(){
@@ -30,13 +31,14 @@ static public class gameHandler {
 
 	static public Vector2 playerDeath(int playerId, bool points = true){
 		if (points) {
-			playerId == 1 ? m_p2score++ : m_p1score++;
+			m_pScore [(playerId == 1) ? 0 : 1]++;
 		}
 
 		return m_spawnPoints [Random.Range (0, m_spawnPoints.Count)];
 	}
 
-	static public void scoreText(GUIText textObj, int playerId){
-		playerId == 1 ? m_p1ScoreText = textObj : m_p2ScoreText = textObj;
+	static public void setScoreText(Text textObj, int playerId){
+		m_scoreText [playerId == 1 ? 0 : 1] = textObj;
+		textObj.text = 0.ToString();
 	}
 }
