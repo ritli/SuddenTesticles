@@ -85,6 +85,10 @@ public class playerMovement : MonoBehaviour {
     [SerializeField] LayerMask collisionMask;
     [SerializeField] LayerMask ballCollisionMask;
 
+	[Header("Particle effects")]
+
+	[SerializeField] GameObject bloodParticles;
+
 
     [SerializeField] Inputs inputs;
     #endregion
@@ -379,8 +383,7 @@ public class playerMovement : MonoBehaviour {
 
 	public void getHit()
 	{
-		// Run death animation
-		transform.position = gameHandler.playerDeath(inputs.ID);
+		transform.position = gameHandler.playerDeath(inputs.ID, transform.position);
 	}
 
 	public int getID()

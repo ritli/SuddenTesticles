@@ -50,11 +50,11 @@ static public class gameHandler {
 		}
 	}
 
-	static public Vector3 playerDeath(int playerId, bool points = true){
-		if (points) {
-			m_pScore [playerId == 1 ? 1 : 0]++;
-			m_scoreText [playerId == 1 ? 1 : 0].text = m_pScore [playerId == 1 ? 1 : 0].ToString ();
-		}
+	static public Vector3 playerDeath(int playerId, Vector3 pos){
+		
+		m_pScore [playerId == 1 ? 1 : 0]++;
+		m_scoreText [playerId == 1 ? 1 : 0].text = m_pScore [playerId == 1 ? 1 : 0].ToString ();
+		GameObject.Instantiate (Resources.Load ("blood"), pos, Quaternion.identity);
 
         Camera.main.GetComponent<CameraController>().ShakeScreen(0.2f, 1);
 
