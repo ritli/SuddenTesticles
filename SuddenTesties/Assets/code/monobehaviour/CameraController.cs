@@ -22,8 +22,13 @@ public class CameraController : MonoBehaviour {
 
         if (players.Length == 0)
         {
-            players = GameObject.FindGameObjectsWithTag("Player");
+			this.Invoke("findPlayers", .1f);
         }	
+	}
+		
+	void findPlayers()
+	{
+		players = GameObject.FindGameObjectsWithTag ("Player");
 	}
 	
 	void FixedUpdate () {
