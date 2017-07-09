@@ -120,6 +120,8 @@ public class playerMovement : MonoBehaviour {
 	//Animator
 	private Animator mAnimator;
 
+    bool AttackTriggered;
+
 	void Start () {
         fireCooldown = fireCooldownMax;
 
@@ -137,11 +139,15 @@ public class playerMovement : MonoBehaviour {
 
 		if (inputs.ID == 1) 
 		{
+            ballHandler = transform.Find("BallRed").GetComponent<BallHandler>();
 			mAnimator.runtimeAnimatorController = controllerP1;
 		} else 
 		{
-			mAnimator.runtimeAnimatorController = controllerP2;
+            ballHandler = transform.Find("BallBlue").GetComponent<BallHandler>();
+            mAnimator.runtimeAnimatorController = controllerP2;
 		}
+
+        ballHandler.gameObject.SetActive(true);
     }
 	
 	void Update () {
@@ -151,7 +157,7 @@ public class playerMovement : MonoBehaviour {
             InputUpdate();
         }
 
-		if (mAnimator.GetCurrentAnimatorStateInfo (0).shortNameHash == Animator.StringToHash ("attack_active"))
+		if (mAnimator.GetCurrentAnimatorStateInfo (0).shortNameHash == Animator.StringToHash ("attack_active") || mAnimator.GetCurrentAnimatorStateInfo(0).shortNameHash == Animator.StringToHash("attack_opp_active"))
 			GetComponentInChildren<meleeAttack> ().setActive (true);
 		else
 			GetComponentInChildren<meleeAttack> ().setActive (false);
@@ -236,16 +242,25 @@ public class playerMovement : MonoBehaviour {
             }
         }
 
-		if (Input.GetButtonDown (inputs.Strike)) 
+		if (Input.GetAxis(inputs.Strike) == 1) 
 		{
-			StartMelee ();		
-		}
-
+            if (!AttackTriggered)
+            {
+                AttackTriggered = true;
+                StartMelee();
+            }
+        }
+        else
+        {
+            AttackTriggered = false;
+        }
+            
 		if (yVel > 0.5f && grounded) {
 			fallthrough = true;
 		}
 
-		if (Input.GetAxis(inputs.Jump) == 1 && grounded && !jump && !(rigidbody.velocity.y > 5))
+
+        if (Input.GetAxis(inputs.Jump) == 1 && grounded && !jump && !(rigidbody.velocity.y > 5))
         {
             jump = true;
         }
@@ -293,6 +308,7 @@ public class playerMovement : MonoBehaviour {
         yield return new WaitForSeconds(0.3f);
 
         GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<Collider2D>().isTrigger = true;
 
         state = PlayerState.firing;
 		headCollider.SetFireState (true);
@@ -300,6 +316,8 @@ public class playerMovement : MonoBehaviour {
 
     void EndFire()
     {
+        ballHandler.PlayEndAnim();
+
         Vector2 normal = Vector2.zero;
 
         for (int i = 0; i < 3; i++)
@@ -310,7 +328,7 @@ public class playerMovement : MonoBehaviour {
 
             RaycastHit2D hit;
 
-            if (hit = Physics2D.Linecast(origin, origin + direction, collisionMask))
+            if (hit = Physics2D.Linecast(origin, origin + direction, ballCollisionMask))
             {
                 normal = hit.normal;
                 break;
@@ -328,6 +346,7 @@ public class playerMovement : MonoBehaviour {
 
         ballHandler.StopAnimation();
         GetComponent<SpriteRenderer>().enabled = true;
+        GetComponent<Collider2D>().isTrigger = false;
 
         state = PlayerState.active;
 		headCollider.SetFireState (false);
