@@ -7,6 +7,6 @@ public class p1ScoreObj : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake(){
-		gameHandler.setScoreText (gameObject.GetComponent<Text> (), 1);
+		gameHandler.setScoreText (gameObject.GetComponent<TMPro.TextMeshProUGUI> (), 1);
 	}
 }
