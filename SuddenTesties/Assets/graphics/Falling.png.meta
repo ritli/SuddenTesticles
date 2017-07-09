@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 450c3cdb1a353804ca8f1e3b407dc23f
-timeCreated: 1499552008
+timeCreated: 1499597150
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -78,7 +78,7 @@ TextureImporter:
         x: 0
         y: 0
         width: 48
-        height: 85
+        height: 87
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -88,10 +88,10 @@ TextureImporter:
       name: Falling_1
       rect:
         serializedVersion: 2
-        x: 49
+        x: 51
         y: 0
         width: 48
-        height: 85
+        height: 87
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
