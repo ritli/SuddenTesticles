@@ -19,7 +19,7 @@ static public class gameHandler {
 	}
 
 	// UI Text objects
-	static Text[] m_scoreText = new Text[2];
+	static TMPro.TextMeshProUGUI[] m_scoreText = new TMPro.TextMeshProUGUI[2];
 
 	// Map object
 	static GameObject m_level;
@@ -65,7 +65,7 @@ static public class gameHandler {
 		return new KeyValuePair<int, Vector3> (++m_playerCount, m_spawnPoints [Random.Range (0, m_spawnPoints.Count)]);
 	}
 
-	static public void setScoreText(Text textObj, int playerId){
+	static public void setScoreText(TMPro.TextMeshProUGUI textObj, int playerId){
 		m_scoreText [playerId - 1] = textObj;
 		textObj.text = 0.ToString();
 	}
