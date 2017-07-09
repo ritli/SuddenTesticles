@@ -203,7 +203,6 @@ public class playerMovement : MonoBehaviour {
 
             if (fireVector.magnitude > 0.85f && fireCooldown > fireCooldownMax)
             {
-
                 StartFire();
             }
         }
@@ -214,6 +213,11 @@ public class playerMovement : MonoBehaviour {
                 StartFire();
             }
         }
+
+		if (Input.GetButtonDown (inputs.Strike)) 
+		{
+			
+		}
 
 		if (yVel > 0.5f && grounded) {
 			fallthrough = true;
