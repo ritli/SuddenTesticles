@@ -328,8 +328,8 @@ public class playerMovement : MonoBehaviour {
         return collisionMask;
     }
 
-	public void setGrounded ()
+	public void setGrounded (bool groundedStatus)
 	{ 
-		grounded = true;
+		grounded = groundedStatus;
 	}
 }
