@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 7dce6310657d9b645a235a40ca2a7196
-timeCreated: 1499554945
+timeCreated: 1499601083
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -78,10 +78,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 153
-        height: 126
+        width: 192
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -89,12 +89,12 @@ TextureImporter:
       name: Attack_exit_1
       rect:
         serializedVersion: 2
-        x: 153
+        x: 192
         y: 0
-        width: 153
-        height: 126
+        width: 192
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -102,12 +102,12 @@ TextureImporter:
       name: Attack_exit_2
       rect:
         serializedVersion: 2
-        x: 306
+        x: 384
         y: 0
-        width: 153
-        height: 126
+        width: 192
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0

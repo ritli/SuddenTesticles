@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: b670e651a47595648b1e2a134fff80dc
-timeCreated: 1499554967
+timeCreated: 1499601582
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -77,7 +77,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 67
+        width: 192
         height: 104
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -88,9 +88,9 @@ TextureImporter:
       name: Attack_start_1
       rect:
         serializedVersion: 2
-        x: 67
+        x: 192
         y: 0
-        width: 67
+        width: 192
         height: 104
       alignment: 0
       pivot: {x: 0, y: 0}

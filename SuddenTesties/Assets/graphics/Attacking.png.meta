@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 126b55d6ceaacb44a981ab4c16d3f7b2
-timeCreated: 1499553989
+timeCreated: 1499601909
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -8,6 +8,7 @@ TextureImporter:
     21300002: Attacking_1
     21300004: Attacking_2
     21300006: Attacking_3
+    21300008: Attacking_4
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -79,8 +80,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 153
-        height: 126
+        width: 192
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -90,10 +91,10 @@ TextureImporter:
       name: Attacking_1
       rect:
         serializedVersion: 2
-        x: 153
+        x: 192
         y: 0
-        width: 153
-        height: 126
+        width: 192
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -103,10 +104,10 @@ TextureImporter:
       name: Attacking_2
       rect:
         serializedVersion: 2
-        x: 306
+        x: 384
         y: 0
-        width: 153
-        height: 126
+        width: 192
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -116,10 +117,23 @@ TextureImporter:
       name: Attacking_3
       rect:
         serializedVersion: 2
-        x: 459
+        x: 576
         y: 0
-        width: 153
-        height: 126
+        width: 192
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attacking_4
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 192
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
