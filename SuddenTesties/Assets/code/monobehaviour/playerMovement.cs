@@ -133,6 +133,11 @@ public class playerMovement : MonoBehaviour {
         {
             InputUpdate();
         }
+
+		if (mAnimator.GetCurrentAnimatorStateInfo (0).shortNameHash == Animator.StringToHash ("attack_active"))
+			GetComponentInChildren<meleeAttack> ().setActive (true);
+		else
+			GetComponentInChildren<meleeAttack> ().setActive (false);
     }
 
 	void FixedUpdate() {
@@ -216,7 +221,7 @@ public class playerMovement : MonoBehaviour {
 
 		if (Input.GetButtonDown (inputs.Strike)) 
 		{
-			
+			StartMelee ();		
 		}
 
 		if (yVel > 0.5f && grounded) {
@@ -245,6 +250,11 @@ public class playerMovement : MonoBehaviour {
         }
         */
     }
+
+	void StartMelee()
+	{
+		mAnimator.SetTrigger ("attackTrigger");
+	}
 
     void StartFire()
     {
