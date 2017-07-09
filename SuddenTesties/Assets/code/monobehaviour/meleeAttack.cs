@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class meleeAttack : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
+	bool active;
+
+	public void setActive(bool dmgState)
+	{
+		active = dmgState;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	void OnTriggerStay2D(Collider2D col)
+	{
+		if (active && col.tag == "Player" && col.transform != transform.parent) 
+		{
+			col.gameObject.GetComponent<playerMovement> ().getHit ();
+		}
 	}
 }
