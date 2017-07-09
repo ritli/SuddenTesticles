@@ -7,6 +7,7 @@ public class HeadCollider : MonoBehaviour {
     LayerMask collisonMask;
     Collider2D collider;
     bool isColliding;
+	bool isFiring;
     ContactPoint2D[] contactPoints;
 
     void Start()
@@ -28,6 +29,23 @@ public class HeadCollider : MonoBehaviour {
             contactPoints = col.contacts;
         }
     }
+
+	void OnTriggerEnter2D(Collider2D col)
+	{
+		if (isFiring) 
+		{
+			if (col.tag == "Player") 
+			{
+				Debug.Log ("Hit a player");
+				if (col.transform != transform.parent) 
+				{
+					Debug.Log ("Player hit is not self");
+					col.gameObject.GetComponent<playerMovement> ().getHit ();
+					Debug.Log ("Player " + GetComponentInParent<playerMovement> ().getID ().ToString () + " got points");
+				}
+			}
+		}
+	}
 
     void Update()
     {
@@ -51,4 +69,9 @@ public class HeadCollider : MonoBehaviour {
     {
         return contactPoints;
     }
+
+	public void SetFireState(bool state)
+	{
+		isFiring = state;
+	}
 }

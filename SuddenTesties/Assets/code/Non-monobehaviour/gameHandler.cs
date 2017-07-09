@@ -52,8 +52,8 @@ static public class gameHandler {
 
 	static public Vector3 playerDeath(int playerId, bool points = true){
 		if (points) {
-			m_pScore [playerId - 1]++;
-			m_scoreText [playerId - 1].text = m_pScore [playerId - 1].ToString ();
+			m_pScore [playerId == 1 ? 1 : 0]++;
+			m_scoreText [playerId == 1 ? 1 : 0].text = m_pScore [playerId == 1 ? 1 : 0].ToString ();
 		}
 
 		return m_spawnPoints [Random.Range (0, m_spawnPoints.Count)];

@@ -123,8 +123,6 @@ public class playerMovement : MonoBehaviour {
 	
 	void Update () {
 
-		//grounded = Physics2D.Linecast (transform.position, groundCheck.position, collisionMask);
-
         if (state == PlayerState.active)
         {
             InputUpdate();
@@ -243,6 +241,7 @@ public class playerMovement : MonoBehaviour {
         transform.rotation = Quaternion.FromToRotation(transform.up, fireVector);
 
         state = PlayerState.firing;
+		headCollider.SetFireState (true);
     }
 
     void EndFire()
@@ -274,6 +273,7 @@ public class playerMovement : MonoBehaviour {
         rigidbody.AddForce(reflectVector * fireBounceForce, ForceMode2D.Impulse);
 
         state = PlayerState.active;
+		headCollider.SetFireState (false);
     }
 
     Vector2 GetFireNormal()
@@ -331,5 +331,16 @@ public class playerMovement : MonoBehaviour {
 	public void setGrounded (bool groundedStatus)
 	{ 
 		grounded = groundedStatus;
+	}
+
+	public void getHit()
+	{
+		// Run death animation
+		transform.position = gameHandler.playerDeath(inputs.ID);
+	}
+
+	public int getID()
+	{
+		return inputs.ID;
 	}
 }
