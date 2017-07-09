@@ -38,15 +38,16 @@ static public class gameHandler {
 		}
 
 		// Load map
-		if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().ToString()== "Level_holder1")
+		if (UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name == "game") 
+		{
 			m_level = GameObject.Instantiate (Resources.Load ("level_holder1")) as GameObject;
 
-		// Load and start music
+			// Load and start music
 
-		// Instantiate players
-		GameObject.Instantiate (Resources.Load ("player"));
-		GameObject.Instantiate (Resources.Load ("player"));
-		
+			// Instantiate players
+			GameObject.Instantiate (Resources.Load ("player"));
+			GameObject.Instantiate (Resources.Load ("player"));
+		}
 	}
 
 	static public Vector3 playerDeath(int playerId, bool points = true){
