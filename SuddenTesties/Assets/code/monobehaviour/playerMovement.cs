@@ -85,9 +85,10 @@ public class playerMovement : MonoBehaviour {
     [SerializeField] LayerMask collisionMask;
     [SerializeField] LayerMask ballCollisionMask;
 
-	[Header("Particle effects")]
+	[Header("Animator controllers")]
 
-	[SerializeField] GameObject bloodParticles;
+	[SerializeField] RuntimeAnimatorController controllerP1;
+	[SerializeField] RuntimeAnimatorController controllerP2;
 
 
     [SerializeField] Inputs inputs;
@@ -133,6 +134,14 @@ public class playerMovement : MonoBehaviour {
         InitControllers();
 
 		mAnimator = GetComponent<Animator>();
+
+		if (inputs.ID == 1) 
+		{
+			mAnimator.runtimeAnimatorController = controllerP1;
+		} else 
+		{
+			mAnimator.runtimeAnimatorController = controllerP2;
+		}
     }
 	
 	void Update () {
