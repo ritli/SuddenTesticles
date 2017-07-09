@@ -42,8 +42,9 @@ static public class gameHandler {
 
 		// Load and start music
 
-		// Instantiate players, give IDs and give spawnpoints
-		GameObject.Instantiate(Resources.Load("player"));
+		// Instantiate players
+		GameObject.Instantiate (Resources.Load ("player"));
+		GameObject.Instantiate (Resources.Load ("player"));
 		
 	}
 

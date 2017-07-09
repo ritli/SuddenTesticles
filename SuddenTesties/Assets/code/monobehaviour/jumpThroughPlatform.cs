@@ -12,7 +12,6 @@ public class jumpThroughPlatform : MonoBehaviour {
 
 	void OnTriggerExit2D(Collider2D col){
 		if (col.gameObject.tag == "Player") {
-			Debug.Log ("Left");
 			col.gameObject.layer = LayerMask.NameToLayer ("Player");
 		}
 	}

@@ -176,7 +176,7 @@ public class playerMovement : MonoBehaviour {
 
     void InputUpdate()
     {
-		if ((float)(facingRight ? 1 : -1) != Mathf.Sign (Input.GetAxis (inputs.Horizontal))) {
+		if ((float)(facingRight ? 1 : -1) != Mathf.Sign (Input.GetAxis (inputs.Horizontal)) && Input.GetAxis(inputs.Horizontal) != 0) {
 			facingRight = !facingRight;
 			transform.localScale = new Vector2 (-transform.localScale.x, transform.localScale.y);
 		}

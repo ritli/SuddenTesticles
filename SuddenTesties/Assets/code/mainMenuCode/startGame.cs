@@ -11,7 +11,6 @@ public class startGame : MonoBehaviour {
 	}
 
 	public void start (){
-		Debug.Log ("Clicked");
 		UnityEngine.SceneManagement.SceneManager.LoadScene ("game");
 	}
 }
