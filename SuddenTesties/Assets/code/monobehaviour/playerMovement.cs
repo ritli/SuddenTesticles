@@ -105,6 +105,7 @@ public class playerMovement : MonoBehaviour {
     //Component vars
     HeadCollider headCollider;
     Rigidbody2D rigidbody;
+    BallHandler ballHandler;
 
     private bool XboxController = false;
     private bool PS4Controller = false;
@@ -117,8 +118,9 @@ public class playerMovement : MonoBehaviour {
 
         headCollider = GetComponentInChildren<HeadCollider>();
         rigidbody = GetComponent<Rigidbody2D> ();
+        ballHandler = GetComponentInChildren<BallHandler>();
 
-		KeyValuePair<int, Vector3> spawnData = gameHandler.spawn ();
+        KeyValuePair<int, Vector3> spawnData = gameHandler.spawn ();
 		transform.position = spawnData.Value;
 		inputs = new Inputs (spawnData.Key);
 
@@ -203,14 +205,14 @@ public class playerMovement : MonoBehaviour {
 
             if (fireVector.magnitude > 0.85f && fireCooldown > fireCooldownMax)
             {
-                StartFire();
+                StartCoroutine(StartFire());
             }
         }
         else
         {
             if (Input.GetButtonDown(inputs.Fire) && fireCooldown > fireCooldownMax)
             {
-                StartFire();
+                StartCoroutine(StartFire());
             }
         }
 
@@ -246,7 +248,7 @@ public class playerMovement : MonoBehaviour {
         */
     }
 
-    void StartFire()
+    IEnumerator StartFire()
     {
         fireCooldown = 0;
         rigidbody.gravityScale = 0;
@@ -257,6 +259,14 @@ public class playerMovement : MonoBehaviour {
         }
 
         transform.rotation = Quaternion.FromToRotation(transform.up, fireVector);
+
+        ballHandler.StartAnimation();
+
+        state = PlayerState.paused;
+
+        yield return new WaitForSeconds(0.3f);
+
+        GetComponent<SpriteRenderer>().enabled = false;
 
         state = PlayerState.firing;
 		headCollider.SetFireState (true);
@@ -289,6 +299,9 @@ public class playerMovement : MonoBehaviour {
         transform.rotation = Quaternion.identity;
 
         rigidbody.AddForce(reflectVector * fireBounceForce, ForceMode2D.Impulse);
+
+        ballHandler.StopAnimation();
+        GetComponent<SpriteRenderer>().enabled = true;
 
         state = PlayerState.active;
 		headCollider.SetFireState (false);
