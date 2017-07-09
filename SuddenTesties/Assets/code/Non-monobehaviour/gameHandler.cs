@@ -56,6 +56,8 @@ static public class gameHandler {
 		m_scoreText [playerId == 1 ? 1 : 0].text = m_pScore [playerId == 1 ? 1 : 0].ToString ();
 		GameObject.Instantiate (Resources.Load ("blood"), pos, Quaternion.identity);
 
+        Camera.main.GetComponent<CameraController>().ShakeScreen(0.2f, 1);
+
 		return m_spawnPoints [Random.Range (0, m_spawnPoints.Count)];
 	}
 
