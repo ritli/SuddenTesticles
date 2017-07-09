@@ -13,6 +13,7 @@ public class Inputs{
     [Range(1, 2)]
     [SerializeField] int playerId;
 
+    string fire = "Fire";
     string strike = "Strike";
     string jump = "Jump";
     string horizontal = "Horizontal";
@@ -30,6 +31,9 @@ public class Inputs{
         return "P" + playerId.ToString();
     }
 
+    public string Fire{
+        get{ return prefix() + fire;}
+    }
     public string Strike
     {
         get { return prefix() + strike; }
@@ -289,8 +293,6 @@ public class playerMovement : MonoBehaviour {
         yield return new WaitForSeconds(0.3f);
 
         GetComponent<SpriteRenderer>().enabled = false;
-        GetComponent<Collider2D>().isTrigger = true;
-
 
         state = PlayerState.firing;
 		headCollider.SetFireState (true);
@@ -326,8 +328,6 @@ public class playerMovement : MonoBehaviour {
 
         ballHandler.StopAnimation();
         GetComponent<SpriteRenderer>().enabled = true;
-        GetComponent<Collider2D>().isTrigger = false;
-
 
         state = PlayerState.active;
 		headCollider.SetFireState (false);
