@@ -293,6 +293,8 @@ public class playerMovement : MonoBehaviour {
         yield return new WaitForSeconds(0.3f);
 
         GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<Collider2D>().isTrigger = true;
+
 
         state = PlayerState.firing;
 		headCollider.SetFireState (true);
@@ -328,6 +330,8 @@ public class playerMovement : MonoBehaviour {
 
         ballHandler.StopAnimation();
         GetComponent<SpriteRenderer>().enabled = true;
+        GetComponent<Collider2D>().isTrigger = false;
+
 
         state = PlayerState.active;
 		headCollider.SetFireState (false);
