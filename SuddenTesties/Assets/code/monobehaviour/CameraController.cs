@@ -7,12 +7,15 @@ public class CameraController : MonoBehaviour {
     [SerializeField] GameObject[] players;
     [SerializeField] float maxAlphaDistance = 0.5f;
     [SerializeField] bool moveToPlayer = true;
+    [SerializeField] float zoomSpeed = 0.2f;
     [SerializeField] float minZoomLevel = 5;
     [SerializeField] float maxZoomLevel = 8;
 
     const float zPos = -10f;
     Vector3 lookAtPosition;
     Camera camera;
+
+    float lastZoom;
 
     bool shakeScreen = false;
     float screenShakeMagnitude = 0f;
@@ -118,7 +121,9 @@ public class CameraController : MonoBehaviour {
 
         float alpha = greatestDistance / new Vector2(Screen.width * 0.5f, Screen.height * 0.5f).magnitude;
 
-        camera.orthographicSize = Mathf.Lerp(minZoomLevel, maxZoomLevel, alpha);
+        camera.orthographicSize = Mathf.Lerp(lastZoom, Mathf.Lerp(minZoomLevel, maxZoomLevel, alpha), zoomSpeed);
+
+        lastZoom = camera.orthographicSize;
     }
 
     Vector2 GetRandomVector(float magnitude)
@@ -126,7 +131,7 @@ public class CameraController : MonoBehaviour {
         return Random.insideUnitCircle * magnitude;
     }
 
-    void ShakeScreen(float time, float magnitude)
+    public void ShakeScreen(float time, float magnitude)
     {
         screenShakeMagnitude = magnitude; 
 
