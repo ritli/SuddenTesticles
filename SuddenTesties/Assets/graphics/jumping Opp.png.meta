@@ -1,16 +1,12 @@
 fileFormatVersion: 2
-guid: a9a69410f9498e4409ef95962c0303ba
-timeCreated: 1499613842
+guid: faa0c64468c01d8498fe77ba06a19bbe
+timeCreated: 1499614216
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: jumping_0
-    21300002: jumping_1
-    21300004: jumping_2
-    21300006: jumping_3
-    21300008: Jumping_0
-    21300010: Jumping_1
-    21300012: Jumping_2
+    21300000: jumping Opp_0
+    21300002: jumping Opp_1
+    21300004: jumping Opp_2
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -77,7 +73,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Jumping_0
+      name: jumping Opp_0
       rect:
         serializedVersion: 2
         x: 0
@@ -90,7 +86,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Jumping_1
+      name: jumping Opp_1
       rect:
         serializedVersion: 2
         x: 64
@@ -103,7 +99,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Jumping_2
+      name: jumping Opp_2
       rect:
         serializedVersion: 2
         x: 128
