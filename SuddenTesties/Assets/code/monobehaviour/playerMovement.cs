@@ -13,7 +13,6 @@ public class Inputs{
     [Range(1, 2)]
     [SerializeField] int playerId;
 
-    string fire = "Fire";
     string strike = "Strike";
     string jump = "Jump";
     string horizontal = "Horizontal";
@@ -31,9 +30,6 @@ public class Inputs{
         return "P" + playerId.ToString();
     }
 
-    public string Fire{
-        get{ return prefix() + fire;}
-    }
     public string Strike
     {
         get { return prefix() + strike; }
