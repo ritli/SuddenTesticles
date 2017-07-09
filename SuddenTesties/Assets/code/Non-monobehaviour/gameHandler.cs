@@ -24,6 +24,8 @@ static public class gameHandler {
 	// Map object
 	static GameObject m_level;
 
+	static int m_playerCount = 0;
+
 	// Setup new game
 	public static void instantiate(){
 
@@ -41,6 +43,7 @@ static public class gameHandler {
 		// Load and start music
 
 		// Instantiate players, give IDs and give spawnpoints
+		GameObject.Instantiate(Resources.Load("player"));
 		
 	}
 
@@ -51,6 +54,10 @@ static public class gameHandler {
 		}
 
 		return m_spawnPoints [Random.Range (0, m_spawnPoints.Count)];
+	}
+
+	static public KeyValuePair<int, Vector3> spawn(){
+		return new KeyValuePair<int, Vector3> (++m_playerCount, m_spawnPoints [Random.Range (0, m_spawnPoints.Count)]);
 	}
 
 	static public void setScoreText(Text textObj, int playerId){

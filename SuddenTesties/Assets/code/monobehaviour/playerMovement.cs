@@ -10,7 +10,7 @@ enum PlayerState
 [System.Serializable]
 public class Inputs{
     [Range(1, 2)]
-    [SerializeField] int playerId = 1;
+    [SerializeField] int playerId;
 
     string fire = "Fire";
     string strike = "Strike";
@@ -19,6 +19,11 @@ public class Inputs{
     string vertical = "Vertical";
     string aimX = "HorizontalAim";
     string aimY = "VerticalAim";
+
+	public Inputs(int pID)
+	{
+		playerId = pID;
+	}
 
     string prefix()
     {
@@ -109,14 +114,16 @@ public class playerMovement : MonoBehaviour {
         headCollider = GetComponentInChildren<HeadCollider>();
         rigidbody = GetComponent<Rigidbody2D> ();
 
-		transform.position = gameHandler.playerDeath (inputs.ID, false);
+		KeyValuePair<int, Vector3> spawnData = gameHandler.spawn ();
+		transform.position = spawnData.Value;
+		inputs = new Inputs (spawnData.Key);
 
         InitControllers();
     }
 	
 	void Update () {
 
-		grounded = Physics2D.Linecast (transform.position, groundCheck.position, collisionMask);
+		//grounded = Physics2D.Linecast (transform.position, groundCheck.position, collisionMask);
 
         if (state == PlayerState.active)
         {
@@ -200,7 +207,7 @@ public class playerMovement : MonoBehaviour {
 			fallthrough = true;
 		}
 
-        if (Input.GetAxis(inputs.Jump) == 1 && grounded && !jump)
+		if (Input.GetAxis(inputs.Jump) == 1 && grounded && !jump && !(rigidbody.velocity.y > 5))
         {
             jump = true;
         }
@@ -320,4 +327,9 @@ public class playerMovement : MonoBehaviour {
     {
         return collisionMask;
     }
+
+	public void setGrounded ()
+	{ 
+		grounded = true;
+	}
 }
