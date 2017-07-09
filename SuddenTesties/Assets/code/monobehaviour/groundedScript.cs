@@ -12,7 +12,10 @@ public class groundedScript : MonoBehaviour {
 		if (col.gameObject.layer == LayerMask.NameToLayer ("Ground") || col.gameObject.layer == LayerMask.NameToLayer ("WorldBox")) 
 		{
 			transform.GetComponentInParent<playerMovement> ().setGrounded (true);
-			platformsTouched++;
+			if(++platformsTouched == 1)
+			{
+				GetComponentInParent<Animator>().SetBool("isGrounded", true);
+			}
 		}
 	}
 
@@ -21,7 +24,11 @@ public class groundedScript : MonoBehaviour {
 		if (col.gameObject.layer == LayerMask.NameToLayer ("Ground") || col.gameObject.layer == LayerMask.NameToLayer ("WorldBox")) 
 		{
 			if(--platformsTouched == 0)
+			{
 				transform.GetComponentInParent<playerMovement> ().setGrounded (false);
+				GetComponentInParent<Animator>().SetBool("isGrounded", false);
+			}
+
 			if (platformsTouched < 0)
 				Debug.Log ("Error: Touching negative amount of platforms");
 		}

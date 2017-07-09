@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 enum PlayerState
 {
     active, firing, paused
@@ -108,7 +109,10 @@ public class playerMovement : MonoBehaviour {
     private bool XboxController = false;
     private bool PS4Controller = false;
 
-    void Start () {
+	//Animator
+	private Animator mAnimator;
+
+	void Start () {
         fireCooldown = fireCooldownMax;
 
         headCollider = GetComponentInChildren<HeadCollider>();
@@ -119,6 +123,8 @@ public class playerMovement : MonoBehaviour {
 		inputs = new Inputs (spawnData.Key);
 
         InitControllers();
+
+		mAnimator = GetComponent<Animator>();
     }
 	
 	void Update () {
@@ -132,8 +138,14 @@ public class playerMovement : MonoBehaviour {
     }
 
 	void FixedUpdate() {
+		mAnimator.SetFloat("speed", Mathf.Abs(rigidbody.velocity.x));
 
-        switch (state)
+		if (mAnimator.GetCurrentAnimatorStateInfo(0).IsName("player_fall"))
+		{
+			mAnimator.ResetTrigger("jumpTrigger");
+		}
+
+		switch (state)
         {
 		case PlayerState.active:
 			if (xDir != 0 && (rigidbody.velocity.x * (float)xDir) < maxSpeed) {
@@ -142,12 +154,14 @@ public class playerMovement : MonoBehaviour {
 				if (rigidbody.velocity.x > maxSpeed) {
 					rigidbody.velocity = new Vector2 (Mathf.Sign (rigidbody.velocity.x) * maxSpeed, rigidbody.velocity.y);
 				}
+				
 			}
 
 			if (jump) {
+				mAnimator.SetTrigger("jumpTrigger");
 				rigidbody.AddForce (Vector2.up * jumpForce, ForceMode2D.Impulse);
 				jump = false;
-			}
+				}
 
 			if (fallthrough) {
 				gameObject.layer = LayerMask.NameToLayer ("PlayerJumpthrough");
@@ -329,7 +343,7 @@ public class playerMovement : MonoBehaviour {
     }
 
 	public void setGrounded (bool groundedStatus)
-	{ 
+	{
 		grounded = groundedStatus;
 	}
 }
