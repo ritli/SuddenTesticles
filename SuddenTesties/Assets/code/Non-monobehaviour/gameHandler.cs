@@ -38,7 +38,8 @@ static public class gameHandler {
 		}
 
 		// Load map
-		m_level = GameObject.Instantiate(Resources.Load("level_holder1")) as GameObject;
+		if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().ToString()== "Level_holder1")
+			m_level = GameObject.Instantiate (Resources.Load ("level_holder1")) as GameObject;
 
 		// Load and start music
 
