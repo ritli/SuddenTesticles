@@ -83,6 +83,8 @@ public class playerMovement : MonoBehaviour {
     [Header("Layermasks")]
 
     [SerializeField] LayerMask collisionMask;
+    [SerializeField] LayerMask ballCollisionMask;
+
 
     [SerializeField] Inputs inputs;
     #endregion
@@ -365,9 +367,9 @@ public class playerMovement : MonoBehaviour {
         }
     }
 
-    public LayerMask GetCollisionMask()
+    public LayerMask GetBallCollisionMask()
     {
-        return collisionMask;
+        return ballCollisionMask;
     }
 
 	public void setGrounded (bool groundedStatus)

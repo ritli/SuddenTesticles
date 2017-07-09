@@ -14,7 +14,7 @@ public class HeadCollider : MonoBehaviour {
     {
         if (transform.parent.CompareTag("Player"))
         {
-            collisonMask = GetComponentInParent<playerMovement>().GetCollisionMask();
+            collisonMask = GetComponentInParent<playerMovement>().GetBallCollisionMask();
         }
 
         if (GetComponent<Collider2D>())
