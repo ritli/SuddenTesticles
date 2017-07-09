@@ -52,6 +52,10 @@ public class Inputs{
     {
         get { return prefix() + aimY; }
     }
+	public int ID 
+	{
+		get { return playerId; }
+	}
 }
 
 public class playerMovement : MonoBehaviour {
@@ -104,6 +108,8 @@ public class playerMovement : MonoBehaviour {
 
         headCollider = GetComponentInChildren<HeadCollider>();
         rigidbody = GetComponent<Rigidbody2D> ();
+
+		transform.position = gameHandler.playerDeath (inputs.ID, false);
 
         InitControllers();
     }

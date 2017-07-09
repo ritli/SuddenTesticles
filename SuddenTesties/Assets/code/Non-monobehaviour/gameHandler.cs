@@ -5,8 +5,11 @@ using UnityEngine.UI;
 
 static public class gameHandler {
 
+	// Spawn point variables
 	static GameObject m_spawnPointsObj;
 	static List<Vector3> m_spawnPoints;
+
+	// Score variables & getters
 	static int[] m_pScore = new int[2];
 	static public int P1Score {
 		get { return m_pScore[0]; }
@@ -15,10 +18,16 @@ static public class gameHandler {
 		get { return m_pScore[1]; }
 	}
 
+	// UI Text objects
 	static Text[] m_scoreText = new Text[2];
+
+	// Map object
+	static GameObject m_level;
 
 	// Setup new game
 	public static void instantiate(){
+
+		// Load spawn points
 		m_spawnPointsObj = GameObject.Instantiate (Resources.Load ("SpawnPoints")) as GameObject;
 		m_spawnPoints = new List<Vector3> ();
 
@@ -27,6 +36,7 @@ static public class gameHandler {
 		}
 
 		// Load map
+		m_level = GameObject.Instantiate(Resources.Load("level_holder1")) as GameObject;
 
 		// Load and start music
 
