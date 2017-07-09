@@ -1,16 +1,11 @@
 fileFormatVersion: 2
-guid: a9a69410f9498e4409ef95962c0303ba
-timeCreated: 1499551535
+guid: b670e651a47595648b1e2a134fff80dc
+timeCreated: 1499554967
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: jumping_0
-    21300002: jumping_1
-    21300004: jumping_2
-    21300006: jumping_3
-    21300008: Jumping_0
-    21300010: Jumping_1
-    21300012: Jumping_2
+    21300000: Attack_start_0
+    21300002: Attack_start_1
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -77,39 +72,26 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Jumping_0
+      name: Attack_start_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 57
-        height: 105
+        width: 67
+        height: 104
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Jumping_1
+      name: Attack_start_1
       rect:
         serializedVersion: 2
-        x: 57
+        x: 67
         y: 0
-        width: 57
-        height: 105
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Jumping_2
-      rect:
-        serializedVersion: 2
-        x: 114
-        y: 0
-        width: 57
-        height: 105
+        width: 67
+        height: 104
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
