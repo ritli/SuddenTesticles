@@ -11,7 +11,7 @@ public class menuCode : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.KeypadEnter) || Input.GetKeyDown (KeyCode.Return)) 
+		if (Input.GetKeyDown (KeyCode.KeypadEnter) || Input.GetKeyDown (KeyCode.Return) || Input.GetAxis("Accept") == 1) 
 		{
 			UnityEngine.SceneManagement.SceneManager.LoadScene ("game");
 		}

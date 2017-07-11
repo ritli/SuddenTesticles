@@ -90,6 +90,9 @@ public class playerMovement : MonoBehaviour {
 	[SerializeField] RuntimeAnimatorController controllerP1;
 	[SerializeField] RuntimeAnimatorController controllerP2;
 
+    [SerializeField] GameObject spawnRed;
+	[SerializeField] GameObject spawnBlue;
+
 
     [SerializeField] Inputs inputs;
     #endregion
@@ -411,8 +414,27 @@ public class playerMovement : MonoBehaviour {
 
 	public void getHit()
 	{
-		transform.position = gameHandler.playerDeath(inputs.ID, transform.position);
-	}
+        ballHandler.StopAnimation();
+        GetComponent<SpriteRenderer>().enabled = true;
+        GetComponent<Collider2D>().isTrigger = false;
+        state = PlayerState.active;
+
+        transform.position = gameHandler.playerDeath(inputs.ID, transform.position);
+
+
+        grounded = true;
+
+        if (inputs.ID == 1)
+        {
+
+
+            ParticleManager.SpawnParticlesAtPosition(spawnRed, (Vector2)transform.position - Vector2.down * 0.5f, Quaternion.FromToRotation(Vector3.forward, Vector3.up), 1.5f);
+        }
+        else
+        {
+            ParticleManager.SpawnParticlesAtPosition(spawnBlue, (Vector2)transform.position - Vector2.down * 0.5f, Quaternion.FromToRotation(Vector3.forward, Vector3.up), 1.5f);
+        }
+    }
 
 	public int getID()
 	{
